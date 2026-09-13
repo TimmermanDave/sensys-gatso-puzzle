@@ -2,10 +2,10 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './e2e/__tests__',
-  outputDir: 'reports/playwright-results',
+  outputDir: 'reports/playwright/artifacts',
   reporter: [
     ['list'],
-    ['html', { outputFolder: 'reports/playwright', open: 'never' }],
+    ['html', { outputFolder: 'reports/playwright/html', open: 'never' }],
   ],
   use: {
     baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://127.0.0.1:4173',

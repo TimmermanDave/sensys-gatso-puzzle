@@ -1,0 +1,24 @@
+.button {
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-small);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-tertiary);
+  color: var(--color-secondary);
+  font-size: var(--font-small);
+  font-weight: var(--weight-bold);
+}
+.primary {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex: 1;
+  background: var(--color-action);
+  border-color: var(--color-action);
+  color: var(--color-tertiary);
+}
+.primary:hover {
+  background: var(--color-secondary);
+}
+.secondary:hover {
+  background: var(--color-background);
+}

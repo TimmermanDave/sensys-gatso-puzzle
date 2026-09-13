@@ -1,0 +1,93 @@
+:root {
+  /* Three base colors; surfaces and interaction states are derived. */
+  --color-primary: #00ae3d;
+  --color-secondary: #293b36;
+  --color-tertiary: #ffffff;
+  --color-action: color-mix(
+    in srgb,
+    var(--color-primary) 60%,
+    var(--color-secondary)
+  );
+  --color-muted: color-mix(
+    in srgb,
+    var(--color-secondary) 75%,
+    var(--color-tertiary)
+  );
+  --color-background: color-mix(
+    in srgb,
+    var(--color-secondary) 4%,
+    var(--color-tertiary)
+  );
+  --color-border: color-mix(
+    in srgb,
+    var(--color-secondary) 16%,
+    var(--color-tertiary)
+  );
+  --color-highlight: color-mix(
+    in srgb,
+    var(--color-primary) 10%,
+    var(--color-tertiary)
+  );
+
+  --font-family: Arial, sans-serif;
+  --font-small: 0.75rem;
+  --font-body: 0.875rem;
+  --font-large: 2rem;
+  --weight-regular: 400;
+  --weight-bold: 700;
+  --line-height: 1.5;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --radius-small: 0.5rem;
+  --radius-large: 1.5rem;
+  --border-width: 1px;
+  --focus-width: 2px;
+  --motion-duration: 140ms;
+
+  font-family: var(--font-family);
+  font-weight: var(--weight-regular);
+  line-height: var(--line-height);
+  color: var(--color-secondary);
+  background: var(--color-background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-size: var(--font-body);
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+h2,
+p {
+  margin: 0;
+}
+h2 {
+  font-size: var(--font-body);
+  font-weight: var(--weight-bold);
+}
+button:focus-visible {
+  outline: var(--focus-width) solid var(--color-action);
+  outline-offset: var(--space-1);
+}
+/** Used in playwright to remove animations for more stable tests. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration: 0ms;
+  }
+}

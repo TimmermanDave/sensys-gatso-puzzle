@@ -1,0 +1,13 @@
+.card {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-6);
+  background: var(--color-tertiary);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-large);
+}
+@media (max-width: 420px) {
+  .card {
+    padding: var(--space-4);
+  }
+}

@@ -1,0 +1,23 @@
+/* Cell size, gap, and solved color are inherited from the board. */
+.tile {
+  position: absolute;
+  left: calc(var(--column) * (var(--cell) + var(--gap)));
+  top: calc(var(--row) * (var(--cell) + var(--gap)));
+  width: var(--cell);
+  height: var(--cell);
+  border: 0;
+  border-radius: var(--radius-small);
+  color: var(--color-secondary);
+  background: var(--tile-background, var(--color-tertiary));
+  font-size: var(--font-large);
+  font-weight: var(--weight-regular);
+  transition:
+    left var(--motion-duration) ease,
+    top var(--motion-duration) ease;
+}
+.tile[aria-disabled='true'] {
+  cursor: default;
+}
+.tile[aria-disabled='false']:hover {
+  background: var(--color-highlight);
+}

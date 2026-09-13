@@ -1,0 +1,13 @@
+.board {
+  --gap: var(--space-2);
+  --cell: calc((100% - (var(--size) - 1) * var(--gap)) / var(--size));
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border: var(--gap) solid var(--color-border);
+  border-radius: var(--radius-small);
+  background: var(--color-border);
+}
+.solved {
+  --tile-background: var(--color-highlight);
+}

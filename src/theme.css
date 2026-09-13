@@ -1,38 +1,19 @@
 :root {
-  /* Three base colors; surfaces and interaction states are derived. */
+  /* App colors */
   --color-primary: #00ae3d;
   --color-secondary: #293b36;
   --color-tertiary: #ffffff;
-  --color-action: color-mix(
-    in srgb,
-    var(--color-primary) 60%,
-    var(--color-secondary)
-  );
-  --color-muted: color-mix(
-    in srgb,
-    var(--color-secondary) 75%,
-    var(--color-tertiary)
-  );
-  --color-background: color-mix(
-    in srgb,
-    var(--color-secondary) 4%,
-    var(--color-tertiary)
-  );
-  --color-border: color-mix(
-    in srgb,
-    var(--color-secondary) 16%,
-    var(--color-tertiary)
-  );
-  --color-highlight: color-mix(
-    in srgb,
-    var(--color-primary) 10%,
-    var(--color-tertiary)
-  );
+  --color-action: #10803a;
+  --color-muted: #5f6c68;
+  --color-background: #f6f7f7;
+  --color-border: #dde0df;
+  --color-highlight: #dbf4e4;
 
   --font-family: Arial, sans-serif;
   --font-small: 0.75rem;
   --font-body: 0.875rem;
   --font-large: 2rem;
+  --weight-light: 100;
   --weight-regular: 400;
   --weight-bold: 700;
   --line-height: 1.5;
@@ -43,6 +24,7 @@
   --space-4: 1rem;
   --space-6: 1.5rem;
   --space-8: 2rem;
+
   --radius-small: 0.5rem;
   --radius-large: 1.5rem;
   --border-width: 1px;
@@ -51,11 +33,12 @@
 
   font-family: var(--font-family);
   font-weight: var(--weight-regular);
-  line-height: var(--line-height);
-  color: var(--color-secondary);
-  background: var(--color-background);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  line-height: var(--line-height);
+
+  color: var(--color-secondary);
+  background: var(--color-background);
 }
 
 * {

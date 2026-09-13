@@ -1,7 +1,8 @@
-import styles from './PuzzleBoard.module.css';
 import type { CSSProperties, KeyboardEvent } from 'react';
 import { canMove, type Board, type PuzzleSize } from '../../domain/puzzle';
 import { PuzzleTile } from './PuzzleTile';
+
+import styles from './PuzzleBoard.module.css';
 
 type Props = {
   board: Board;
@@ -36,8 +37,11 @@ export function PuzzleBoard({ board, size, onMove, solved }: Props) {
       aria-describedby="puzzle-help"
       onKeyDown={handleKeyDown}
     >
-      {board.map((tile, index) =>
-        tile === 0 ? null : (
+      {/* Stable DOM order keeps moves from interrupting CSS transitions. */}
+      {Array.from({ length: size * size - 1 }, (_, offset) => {
+        const tile = offset + 1;
+        const index = board.indexOf(tile);
+        return (
           <PuzzleTile
             key={tile}
             value={tile}
@@ -46,8 +50,8 @@ export function PuzzleBoard({ board, size, onMove, solved }: Props) {
             movable={!solved && canMove(board, size, index)}
             onMove={() => onMove(index)}
           />
-        ),
-      )}
+        );
+      })}
     </div>
   );
 }

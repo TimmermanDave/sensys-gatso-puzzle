@@ -1,5 +1,6 @@
-import styles from './SizePicker.module.css';
 import { puzzleSizes, type PuzzleSize } from '../../domain/puzzle';
+
+import styles from './SizePicker.module.css';
 
 type Props = { size: PuzzleSize; onChange: (size: PuzzleSize) => void };
 

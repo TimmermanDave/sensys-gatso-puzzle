@@ -1,5 +1,6 @@
 import { usePuzzleContext } from '../../context/PuzzleContext';
 import { SizePicker } from './SizePicker';
+
 import styles from './GameToolbar.module.css';
 
 export function GameToolbar() {

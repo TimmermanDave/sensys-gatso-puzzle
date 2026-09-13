@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+
 import styles from './PuzzleTile.module.css';
 
 type Props = {

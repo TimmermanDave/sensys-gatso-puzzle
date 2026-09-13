@@ -1,24 +1,29 @@
 .logo {
-  --logo-width: 10.25rem;
+  --logo-width: 10rem;
   --logo-height: 8rem;
-  --logo-tile: 0.375rem;
-  --logo-gap: 0.125rem;
+  --logo-curve: 4rem;
   position: relative;
   width: var(--logo-width);
   height: var(--logo-height);
   margin: 0 auto;
   padding: var(--space-4) var(--space-3);
-  border-radius: 0 50% 50% 0;
-  background: var(--color-primary);
+  background:
+    linear-gradient(var(--color-primary), var(--color-primary)) left /
+      calc(100% - var(--logo-curve)) 100% no-repeat,
+    radial-gradient(
+        ellipse var(--logo-curve) calc(var(--logo-height) / 2) at left center,
+        var(--color-primary) calc(100% - 1px),
+        transparent 100%
+      )
+      right / var(--logo-curve) 100% no-repeat;
   color: var(--color-tertiary);
   font-size: var(--font-large);
   font-weight: var(--weight-bold);
-  letter-spacing: -0.035em;
   line-height: 0.94;
 }
 .text > span {
   display: block;
 }
 .subtitle {
-  font-weight: var(--weight-regular);
+  font-weight: var(--weight-light);
 }

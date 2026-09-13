@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { createApiHandler } from './server/api';
 
 const reportPaths = [
   '/reports/vitest/index.html',
@@ -9,6 +11,9 @@ const reportPaths = [
 ];
 
 export default defineConfig({
+  root: 'client',
+  build: { outDir: '../dist', emptyOutDir: true },
+  server: { fs: { allow: [fileURLToPath(new URL('.', import.meta.url))] } },
   define: {
     'import.meta.env.GAME_TEST_REPORT_PATHS': JSON.stringify(
       reportPaths.filter((path) =>
@@ -17,6 +22,27 @@ export default defineConfig({
     ),
   },
   plugins: [
+    {
+      name: 'puzzle-api',
+      configureServer(server) {
+        const handler = createApiHandler();
+        server.middlewares.use((req, res, next) => {
+          // Reports remain at the repository root, outside the client root.
+          if (req.url?.startsWith('/reports/')) {
+            req.url = `/@fs/${fileURLToPath(new URL('.', import.meta.url)).replaceAll('\\', '/')}${req.url.slice(1)}`;
+          }
+          if (req.url?.startsWith('/api/')) void handler(req, res);
+          else next();
+        });
+      },
+      configurePreviewServer(server) {
+        const handler = createApiHandler();
+        server.middlewares.use((req, res, next) => {
+          if (req.url?.startsWith('/api/')) void handler(req, res);
+          else next();
+        });
+      },
+    },
     react(),
     {
       name: 'inline-small-entry-css',
@@ -45,9 +71,10 @@ export default defineConfig({
     },
   ],
   test: {
+    root: '.',
     environment: 'jsdom',
-    setupFiles: ['./src/__tests__/setup.ts'],
-    include: ['src/**/__tests__/*.test.{ts,tsx}'],
+    setupFiles: ['./client/__tests__/setup.ts'],
+    include: ['client/**/__tests__/*.test.{ts,tsx}', 'server/**/*.test.ts'],
     clearMocks: true,
     restoreMocks: true,
     reporters: ['default', 'html'],

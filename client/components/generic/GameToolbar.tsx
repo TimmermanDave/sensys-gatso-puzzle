@@ -1,0 +1,21 @@
+import { usePuzzleContext } from '../../context/PuzzleContext';
+import { SizePicker } from './SizePicker';
+
+import styles from './GameToolbar.module.css';
+
+export function GameToolbar() {
+  const { size, moves, newGame, pending, error } = usePuzzleContext();
+  return (
+    <div className={styles.toolbar}>
+      <SizePicker
+        size={size}
+        onChange={newGame}
+        disabled={pending || !!error}
+      />
+      <div className={styles.counter}>
+        <span>Moves</span>
+        <output aria-label="Moves">{moves}</output>
+      </div>
+    </div>
+  );
+}

@@ -23,7 +23,11 @@ test('tiles animate in all four directions', async ({ page }) => {
       )!;
       if (empty === 4) break;
       const next = empty < 3 ? empty + 3 : empty > 5 ? empty - 3 : 4;
-      tiles.find((tile) => position(tile) === next)!.click();
+      const tile = tiles.find((tile) => position(tile) === next)!;
+      tile.click();
+      const deadline = performance.now() + 5000;
+      while (position(tile) === next && performance.now() < deadline)
+        await frame();
       await frame();
       await frame();
     }
@@ -47,7 +51,11 @@ test('tiles animate in all four directions', async ({ page }) => {
       const tile = tiles.find((tile) => position(tile) === empty + offset)!;
       // Flush the starting style before moving the tile.
       tile.getBoundingClientRect();
+      const before = position(tile);
       tile.click();
+      const deadline = performance.now() + 5000;
+      while (position(tile) === before && performance.now() < deadline)
+        await new Promise(requestAnimationFrame);
       await new Promise(requestAnimationFrame);
       await new Promise(requestAnimationFrame);
       const animations = tile.getAnimations();

@@ -8,6 +8,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "build": "tsc -b && vite build",
+    "build:api": "tsc -p tsconfig.server.json",
+    "start:api": "node .server/server/index.js",
     "preview": "vite preview --host 0.0.0.0 --port 4173 --strictPort",
     "up": "docker compose up --build -d",
     "test": "vitest run",

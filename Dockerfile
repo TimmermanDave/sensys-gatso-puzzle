@@ -3,10 +3,19 @@ FROM node:22-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
-COPY index.html tsconfig.json vite.config.ts ./
-COPY src ./src
-COPY public ./public
+COPY tsconfig.json tsconfig.server.json vite.config.ts ./
+COPY server ./server
+COPY client ./client
 RUN npm run build
+RUN npm run build:api
+
+FROM node:22-alpine AS api
+WORKDIR /app
+COPY package.json ./
+COPY --from=build /app/.server ./.server
+USER node
+EXPOSE 3001
+CMD ["node", ".server/server/index.js"]
 
 # Runtime image
 FROM nginxinc/nginx-unprivileged:stable-alpine AS runtime

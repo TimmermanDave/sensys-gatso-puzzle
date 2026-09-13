@@ -3,13 +3,6 @@ import { expect, test } from '@playwright/test';
 test('play, restart, and choose a larger puzzle on a narrow screen', async ({
   page,
 }) => {
-  // Reproducible boards without adding test-only controls to the app.
-  await page.addInitScript(() => {
-    let seed = 42;
-    Object.defineProperty(crypto, 'getRandomValues', {
-      value: (values: Uint32Array) => values.fill(seed++),
-    });
-  });
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto('/');
   await expect(
@@ -43,9 +36,9 @@ test('play, restart, and choose a larger puzzle on a narrow screen', async ({
       })),
     ),
   ).toEqual(initial);
-  await page.getByRole('radio', { name: '4 × 4' }).check();
+  await page.getByRole('radio', { name: '4 × 4' }).click();
   await expect(tiles).toHaveCount(15);
-  await page.getByRole('radio', { name: '5 × 5' }).check();
+  await page.getByRole('radio', { name: '5 × 5' }).click();
   await expect(tiles).toHaveCount(24);
   const largerBoard = await tiles.evaluateAll((elements) =>
     elements.map((el) => ({

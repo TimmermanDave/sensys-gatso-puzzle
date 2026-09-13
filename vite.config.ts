@@ -1,7 +1,21 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
+import { existsSync } from 'node:fs';
+
+const reportPaths = [
+  '/reports/vitest/index.html',
+  '/reports/playwright/html/index.html',
+  '/reports/lighthouse/index.html',
+];
 
 export default defineConfig({
+  define: {
+    'import.meta.env.GAME_TEST_REPORT_PATHS': JSON.stringify(
+      reportPaths.filter((path) =>
+        existsSync(new URL(`.${path}`, import.meta.url)),
+      ),
+    ),
+  },
   plugins: [
     react(),
     {

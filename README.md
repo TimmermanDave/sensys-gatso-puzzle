@@ -14,12 +14,21 @@ Play a solvable 3×3, 4×4, or 5×5 puzzle with clicks or arrow keys. Restart th
 
 ## Get started
 
-Node.js 22+, npm, and Chrome for Lighthouse. Docker is optional.
+Node.js 22+, npm, and Chrome for Lighthouse. 
 
 ```sh
 npm ci
-npx playwright install chromium
 npm run dev
+```
+Docker is optional.
+```sh
+npm run up
+```
+For tests.
+
+```sh
+npx playwright install chromium
+npm run report
 ```
 
 ## Scripts
@@ -33,23 +42,15 @@ npm run dev
 | `npm test`                  | Run unit/component tests and update the HTML report.      |
 | `npm run test:watch`        | Rerun unit/component tests while editing.                 |
 | `npm run test:e2e`          | Run the Chromium browser test and update its HTML report. |
-| `npm run test:report`       | Alias for `npm test`.                                     |
-| `npm run test:e2e:report`   | Alias for `npm run test:e2e`.                             |
-| `npm run lighthouse:report` | Build, start a preview, audit it, and stop the preview.   |
+| `npm run lighthouse`        | Build, start a preview, audit it, and stop the preview.   |
 | `npm run report`            | Run tests, then build and generate the Lighthouse report. |
 | `npm run format`            | Format source files.                                      |
 | `npm run format:check`      | Check formatting.                                         |
 
-Run `npm run lighthouse:report` on its own; it starts a production preview on port 4173 and stops it after the audit, including when the audit fails. The pinned Lighthouse CLI downloads on first use. Development uses port 5173; preview and browser tests use port 4173. Servers fail if their port is occupied instead of switching to another port. Stop any manual preview before running Lighthouse. Stop Docker with `docker compose down`.
-
 ## Reports
 
-Reports update without opening a browser or report viewer:
-
-In development, links below the puzzle open the generated reports in new tabs. Run `npm run report` to generate them first. These links are excluded from production builds, including Docker images.
+In development, links below the puzzle open the generated reports in new tabs. Run `npm run report` to generate them first. These links are **excluded** from production builds.
 
 - `reports/vitest/index.html`
 - `reports/playwright/html/index.html`
 - `reports/lighthouse/index.html`
-
-Supporting assets, traces, and optional coverage stay inside those three folders. All reports are ignored by Git. To inspect Vitest interactively, explicitly run `npx vite preview --outDir reports/vitest --port 4174`; for Playwright, run `npx playwright show-report reports/playwright/html`.
